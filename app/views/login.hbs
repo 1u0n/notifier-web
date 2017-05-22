@@ -1,0 +1,41 @@
+		
+	{{#error}}
+	<div class="alert alert-danger">
+		<p>{{message}}</p>
+	</div>
+	<br/>
+	{{/error}}
+	
+	<div class="headerDiv">
+		<h2>Login</h2>
+	</div>
+	<br/>		
+		
+  	<div class="configDiv well">
+	  	<form action="doLogin" method="POST">
+		  		<label for="name">Username</label>
+		  		<input name="name" class="withMargin" type="text" size="35"/>
+		  		<label for="pass">Password</label>
+		  		<input name="pass" class="withMargin" type="text" size="35"/>
+	  			<input type="submit" class="btn btn-primary withMargin" value="Login"/>	  		
+	  	</form>
+	  </div>
+	  
+	  <br/>
+	  
+	  <div class="headerDiv">
+			<h2>or create new user</h2>
+		</div>
+		<br/>		
+		
+  	<div class="configDiv well">
+	  	<form action="doSignup" method="POST">
+		  		<label for="name">Username</label>
+		  		<input name="name" class="withMargin" type="text" size="35"/>
+
+		  		<label for="pass">Password</label>
+		  		<input name="pass" class="withMargin" type="text" size="35"/>
+	  			  		
+	  			<input type="submit" class="btn btn-primary withMargin" value="Create user"/>	  		
+	  	</form>
+	  </div>

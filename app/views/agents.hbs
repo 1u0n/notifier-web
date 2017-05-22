@@ -1,0 +1,81 @@
+		
+	{{#error}}
+	<div class="alert alert-dismissible alert-danger headerDiv">
+		<p>{{message}}</p>
+	</div>
+	<br/>
+	{{/error}}
+
+
+	{{#info}}
+	<div class="alert alert-dismissible alert-success headerDiv">
+		<p>{{message}}</p>
+	</div>
+	<br/>
+	{{/info}}
+	
+	<div class="headerDiv">
+		<h2><b>Your agents</b></h2>
+	</div>
+	<br/>
+		
+	{{#agents}}
+  	<div class="configDiv well bs-component">
+	  	<form action="handleAction" method="POST">
+	  		<div class="separator">
+		  		<label for="url">URL</label>
+		  		<input name="url" type="url" size="80" value="{{url}}"/>
+		  	</div>
+		  	<div class="separator">
+		  		<label for="selector">selector</label>
+		  		<input name="selector" type="text" size="76" value="{{selector}}"/>
+	  		</div>
+	  		<div class="separator">
+		  		<label for="expect">expect</label>
+		  		<select name="expect" class="withMargin" onchange="onChangeExpect(this)">
+		          <option value="0" {{#ifEquals expect 0}}selected{{/ifEquals}}>value</option>
+		          <option value="1" {{#ifEquals expect 1}}selected{{/ifEquals}}>list</option>
+				</select>
+		  		<label for="trigger">trigger notification when</label>
+		  		<select name="trigger" onchange="onChangeTrigger(this)">
+		          <option class="valueOption" value="0" {{#ifEquals trigger 0}}selected{{/ifEquals}} {{#ifEquals expect 1}}disabled{{/ifEquals}}>value changes</option>
+		          <option class="valueOption" value="1" {{#ifEquals trigger 1}}selected{{/ifEquals}} {{#ifEquals expect 1}}disabled{{/ifEquals}}>new value equals</option>
+		          <option class="valueOption" value="2" {{#ifEquals trigger 2}}selected{{/ifEquals}} {{#ifEquals expect 1}}disabled{{/ifEquals}}>new value not equals</option>
+		          <option class="valueOption" value="3" {{#ifEquals trigger 3}}selected{{/ifEquals}} {{#ifEquals expect 1}}disabled{{/ifEquals}}>new value bigger than</option>
+		          <option class="valueOption" value="4" {{#ifEquals trigger 4}}selected{{/ifEquals}} {{#ifEquals expect 1}}disabled{{/ifEquals}}>new value less than</option>
+		          <option class="valueOption" value="5" {{#ifEquals trigger 5}}selected{{/ifEquals}} {{#ifEquals expect 1}}disabled{{/ifEquals}}>new value contains</option>
+		          <option class="listOption" value="6" {{#ifEquals trigger 6}}selected{{/ifEquals}} {{#ifEquals expect 0}}disabled{{/ifEquals}}>new elements</option>
+		          <option class="listOption" value="7" {{#ifEquals trigger 7}}selected{{/ifEquals}} {{#ifEquals expect 0}}disabled{{/ifEquals}}>new n elements</option>
+		          <option class="listOption" value="8" {{#ifEquals trigger 8}}selected{{/ifEquals}} {{#ifEquals expect 0}}disabled{{/ifEquals}}>new element contains</option>
+					</select>
+					<input name="condition" class="withMargin" type="text" size="15" value="{{condition}}" {{#ifEquals condition ''}}style="visibility:hidden"{{/ifEquals}}/>
+	  		</div>
+	  		<div class="separator">
+		  		<select name="check" onchange="onChangeCheck(this)">
+					<option value="1" {{#ifEquals frequency ''}}selected{{/ifEquals}}>check at</option>
+		          	<option value="0" {{#ifEquals exact_time ''}}selected{{/ifEquals}}>check every</option>
+				</select>
+		  		<input name="time" type="text" size="6" value="{{#ifEquals exact_time ''}}{{frequency}}{{else}}{{exact_time}}{{/ifEquals}}"/> <span class="withMargin">{{#ifEquals exact_time ''}}minutes{{else}}every day{{/ifEquals}}</span>
+ 	  		  <label for="name">agent name</label>
+		  		<input name="name" type="text" size="20" value="{{name}}"/>
+	  		</div>
+	  		
+			{{#if id}}
+	  		<input type="hidden" name="agentId" value="{{id}}"/>
+			<input type="submit" class="btn btn-primary" value="Update agent"/>
+	  		<input type="submit" class="btn btn-primary" name="delete" value="Delete agent"/>
+			{{else}}
+			<input type="submit" class="btn btn-primary" value="Create agent"/>
+			{{/if}}
+	  		
+	  		
+			<button class="btn btn-default" onclick="testAgent(event, this)">Test agent<img src="images/loading.svg" class="loading"/></button>
+	  		
+	  	</form>
+	  </div>
+	{{/agents}}
+		
+
+
+<script src="/js/agents.js">
+</script>
