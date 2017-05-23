@@ -55,8 +55,10 @@ function testAgent(event, button) {
         imgLoading.style.display = "none";
         if (this.status == 200) {
             alert("Result found:\n\n" + this.responseText);
+        } else if (this.status == 400) {
+            alert("Error: " + this.responseText);
         } else {
-            alert("Error " + this.status + " occurred while trying to test agent");
+            alert("Error " + this.status + " occurred while trying to test agent:\n" + this.responseText);
         }
     }
     request.open("POST", "/testAgent");
