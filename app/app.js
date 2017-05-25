@@ -36,8 +36,8 @@ db.getAgents((err, row) => {
 
 //set up web app routers
 app.use('/sse', sseRoute);
-app.use('/', loginRoute);
-app.use('/', managementRoute);
+app.use('/notifier', loginRoute);
+app.use('/notifier', managementRoute);
 
 
 
@@ -50,13 +50,15 @@ app.use(function(req, res, next) {
 
 //error handler
 app.use((err, req, res, next) => {
-    console.log("Captured error with status: " + err.message);
+    console.log("Captured server error: " + err.message + "\n" + err.stack);
 
-    res.locals.message = err.message;
-    res.locals.error = err;
-    // render the error page
-    res.status(err.status || 500);
-    res.render('error');
+    if (res && !res.headersSent) {
+        res.locals.message = err.message;
+        res.locals.error = err;
+        // render the error page
+        res.status(err.status || 500);
+        res.render('error');
+    }
 });
 
 

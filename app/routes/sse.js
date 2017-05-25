@@ -34,6 +34,7 @@ router.post('/check', function(req, res) {
 router.get('/connect', function(req, res) {
     sseChannel.addClient(req, res);
     getAllNotifications(req.body.userId, res, sseChannel);
+
     /*sseChannel.send({ data: 'eventless message!' });
     sseChannel.send({ event: 'hello', data: 'this is just a hello message' });
     sseChannel.send({ event: 'disconnect' });*/
@@ -43,14 +44,15 @@ router.get('/connect', function(req, res) {
 
 function getAllNotifications(userId, res, channel = null) {
 
-    db.serialize(function() {
+    db.getNotificationsByUserId(userId,
+        (err, rows) => {
+            if (err) {
+                console.log("Error retrieving notifications from the DB");
+                return;
+            }
 
-        db.getNotificationsByUserId(userId,
-            (err, rows) => {
-                if (err)
-                    console.log("Error retreiving notifications from the DB");
-
-                if (channel !== null) {
+            if (channel !== null) {
+                try {
                     for (var i in rows) {
                         channel.send(JSON.stringify({ 'agent': rows[i].name, 'text': rows[i].text, 'time': rows[i].time }), [res]);
 
@@ -60,10 +62,12 @@ function getAllNotifications(userId, res, channel = null) {
                                     console.log("Error deleting notification with id " + rows[i].id);
                             });
                     }
-                } else
-                    res.json({ newNotifications: rows.length });
-            });
-    });
+                } catch (e) {
+                    console.log("Error while sending notifications through SSE channel: " + e.stack);
+                }
+            } else
+                res.json({ newNotifications: rows.length });
+        });
 }
 
 
