@@ -16,13 +16,24 @@ body {
     margin: 0 15px 35px 15px;
 }
 
+.loginDiv {
+    display: inline-block;
+    padding: 20px !important;
+    min-width: 350px;
+    margin: 0 15px 35px 15px;
+}
+
 .separator {
     margin-bottom: 30px;
     text-align: left;
 }
 
-.withMargin {
+.withMarginRight {
     margin-right: 25px;
+}
+
+.withMarginBottom {
+    margin-bottom: 25px;
 }
 
 .rightAlign {

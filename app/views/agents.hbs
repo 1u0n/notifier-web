@@ -32,7 +32,7 @@
 	  		</div>
 	  		<div class="separator">
 		  		<label for="expect">expect</label>
-		  		<select name="expect" class="withMargin" onchange="onChangeExpect(this)">
+		  		<select name="expect" class="withMarginRight" onchange="onChangeExpect(this)">
 		          <option value="0" {{#ifEquals expect 0}}selected{{/ifEquals}}>value</option>
 		          <option value="1" {{#ifEquals expect 1}}selected{{/ifEquals}}>list</option>
 				</select>
@@ -48,14 +48,14 @@
 		          <option class="listOption" value="7" {{#ifEquals trigger 7}}selected{{/ifEquals}} {{#ifEquals expect 0}}disabled{{/ifEquals}}>new n elements</option>
 		          <option class="listOption" value="8" {{#ifEquals trigger 8}}selected{{/ifEquals}} {{#ifEquals expect 0}}disabled{{/ifEquals}}>new element contains</option>
 					</select>
-					<input name="condition" class="withMargin" type="text" size="15" value="{{condition}}" {{#ifEquals condition ''}}style="visibility:hidden"{{/ifEquals}}/>
+					<input name="condition" class="withMarginRight" type="text" size="15" value="{{condition}}" {{#ifEquals condition ''}}style="visibility:hidden"{{/ifEquals}}/>
 	  		</div>
 	  		<div class="separator">
 		  		<select name="check" onchange="onChangeCheck(this)">
 					<option value="1" {{#ifEquals frequency ''}}selected{{/ifEquals}}>check at</option>
 		          	<option value="0" {{#ifEquals exact_time ''}}selected{{/ifEquals}}>check every</option>
 				</select>
-		  		<input name="time" type="text" size="6" value="{{#ifEquals exact_time ''}}{{frequency}}{{else}}{{exact_time}}{{/ifEquals}}"/> <span class="withMargin">{{#ifEquals exact_time ''}}minutes{{else}}every day{{/ifEquals}}</span>
+		  		<input name="time" type="text" size="6" value="{{#ifEquals exact_time ''}}{{frequency}}{{else}}{{exact_time}}{{/ifEquals}}"/> <span class="withMarginRight">{{#ifEquals exact_time ''}}minutes{{else}}every day{{/ifEquals}}</span>
  	  		  <label for="name">agent name</label>
 		  		<input name="name" type="text" size="30" value="{{name}}"/>
 	  		</div>
