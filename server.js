@@ -15,33 +15,8 @@ server.on('error', onError);
 server.on('listening', onListening);
 
 server.on('clientError', (err, socket) => {
-    console.log("clientError: " + err.message);
+    console.error("clientError: " + err.message);
 });
-
-
-/* ONLY FOR DEBUG
-server.on('request', (req, res) => {
-    res.on('finish', () => {
-        console.log("FINISHED RESPONSE CODE: " + res.statusCode);
-        console.log("FINISHED RESPONSE MESSAGE: " + res.statusMessage);
-    });
-    res.on('close', () => {
-        console.log("CLOSED RESPONSE CODE: " + res.statusCode);
-        console.log("CLOSED RESPONSE MESSAGE: " + res.statusMessage);
-    });
-});
-*/
-
-
-
-var stdin = process.openStdin();
-stdin.addListener("data", function(line) {
-    //the line contains return of carriage so we'll trim it
-    line = line.toString().trim();
-    MyApp.sendSSE(line.toString().trim());
-});
-
-
 
 
 

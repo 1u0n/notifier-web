@@ -32,7 +32,14 @@ router.post('/check', function(req, res) {
 
 
 router.get('/connect', function(req, res) {
-    sseChannel.addClient(req, res);
+    //if the mobile client is connecting again by error, we respond but don't add it to the channel
+    var alreadyAdded = false;
+    for (var i = 0; i < sseChannel.connectedClientsList.length; i++)
+        if (req.body.userId == sseChannel.connectedClientsList[i].id)
+            alreadyAdded = true;
+
+    if (!alreadyAdded)
+        sseChannel.addClient(req, res);
     getAllNotifications(req.body.userId, res, sseChannel);
 
     /*sseChannel.send({ data: 'eventless message!' });
@@ -47,7 +54,7 @@ function getAllNotifications(userId, res, channel = null) {
     db.getNotificationsByUserId(userId,
         (err, rows) => {
             if (err) {
-                console.log("Error retrieving notifications from the DB");
+                console.error("Error retrieving notifications from the DB");
                 return;
             }
 
@@ -59,11 +66,11 @@ function getAllNotifications(userId, res, channel = null) {
                         db.deleteNotification(rows[i].id,
                             (error) => {
                                 if (error)
-                                    console.log("Error deleting notification with id " + rows[i].id);
+                                    console.error("Error deleting notification with id " + rows[i].id);
                             });
                     }
                 } catch (e) {
-                    console.log("Error while sending notifications through SSE channel: " + e.stack);
+                    console.error("Error while sending notifications through SSE channel: " + e.stack);
                 }
             } else
                 res.json({ newNotifications: rows.length });

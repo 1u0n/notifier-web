@@ -64,7 +64,7 @@ function crawl(agentId, userId, url, selector, expect, trigger, condition, lastV
     else {
         crawler(url, expect == constants.LIST ? [selector + ' | collapse | trim'] : selector + ' | collapse | trim')(function(err, result) {
 
-            if (err) return console.log("Error while crawling " + url + " " + err);
+            if (err) return console.error("Error while crawling " + url + " " + err);
 
             var notification = checkCondition(result, expect, trigger, condition, lastValue);
             if (notification)
@@ -75,7 +75,7 @@ function crawl(agentId, userId, url, selector, expect, trigger, condition, lastV
                 db.updateAgentLastValue(agentId, Array.isArray(result) ? JSON.stringify(result) : result,
                     (error) => {
                         if (error)
-                            console.log("DB error on agent update: " + error);
+                            console.error("DB error on agent update: " + error);
                     });
         });
     }
@@ -156,6 +156,6 @@ function notify(userId, agentId, name, notification) {
     db.createNotification(userId, agentId, notification,
         (error) => {
             if (error)
-                console.log("Error on notification insert: " + error + "\nwhile inserting notification: " + notification + "  for agentId: " + agentId);
+                console.error("Error on notification insert: " + error + "\nwhile inserting notification: " + notification + "  for agentId: " + agentId);
         });
 }

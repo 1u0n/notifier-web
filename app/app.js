@@ -36,8 +36,8 @@ db.getAgents((err, row) => {
 
 //set up web app routers
 app.use('/sse', sseRoute);
-app.use('/notifier', loginRoute);
-app.use('/notifier', managementRoute);
+app.use('/', loginRoute);
+app.use('/', managementRoute);
 
 
 
@@ -50,25 +50,18 @@ app.use(function(req, res, next) {
 
 //error handler
 app.use((err, req, res, next) => {
-    console.log("Captured server error: " + err.message + "\n" + err.stack);
+    if (err.status != 404) {
+        console.error("Captured server error: " + err.message + "\n" + err.stack);
+        res.locals.error = err;
+    }
 
+    // render the error page if the response isn't terminated or sent
     if (res && !res.headersSent) {
         res.locals.message = err.message;
-        res.locals.error = err;
-        // render the error page
         res.status(err.status || 500);
         res.render('error');
     }
 });
-
-
-
-
-function sendSSE(text) {
-    var time = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
-    //sseChannel.send({ event: 'keyboard', data: text });
-    sseChannel.send(JSON.stringify({ 'agent': "Keyboard", 'text': text, 'time': time }));
-}
 
 
 function exitHandler() {
@@ -88,4 +81,4 @@ process.on('uncaughtException', exitHandler);
 
 
 
-module.exports = { app: app, sendSSE: sendSSE };
+module.exports = { app: app };
