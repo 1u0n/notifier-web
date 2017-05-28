@@ -63,7 +63,7 @@ db.getUserByLogin = function(name, password, callback) {
 };
 
 db.createUser = function(name, password, callback) {
-    this.run("INSERT INTO users (name, password) VALUES (?, ?)", name, pass, callback);
+    this.run("INSERT INTO users (name, password) VALUES (?, ?)", name, password, callback);
 }
 
 

@@ -65,3 +65,8 @@ function testAgent(event, button) {
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     request.send("url=" + url + "&selector=" + selector + "&expect=" + expect);
 }
+
+
+function logout() {
+    window.location.replace('/logout');
+}

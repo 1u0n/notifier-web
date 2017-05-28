@@ -15,7 +15,7 @@ router.use(function(req, res, next) {
 });
 
 
-router.get(['/', '/agents'], function(req, res) {
+router.get(['/', '/agents', '/notifier'], function(req, res) {
 
     var errorMessage = false,
         infoMessage = false;
@@ -50,10 +50,14 @@ router.get(['/', '/agents'], function(req, res) {
 
 
 router.post('/testAgent', function(req, res) {
-    if (!req.body.url)
+    if (!req.body.url) {
         res.status(400).send("Need to provide a URL");
-    if (!req.body.selector)
+        return;
+    }
+    if (!req.body.selector) {
         res.status(400).send("Need to provide a selector");
+        return;
+    }
 
     try {
         crawler(req.body.url, req.body.expect == constants.LIST ? [req.body.selector + ' | collapse | trim'] : req.body.selector + ' | collapse | trim')
