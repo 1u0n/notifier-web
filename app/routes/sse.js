@@ -32,14 +32,12 @@ router.post('/check', function(req, res) {
 
 
 router.get('/connect', function(req, res) {
-    //if the mobile client is connecting again by error, we respond but don't add it to the channel
-    var alreadyAdded = false;
+    //if the mobile client leaked the previous connection and it's trying to connect again, wipe its previous connections
     for (var i = 0; i < sseChannel.connectedClientsList.length; i++)
         if (req.body.userId == sseChannel.connectedClientsList[i].id)
-            alreadyAdded = true;
+            sseChannel.connectedClientsList[i].res.end();
 
-    if (!alreadyAdded)
-        sseChannel.addClient(req, res);
+    sseChannel.addClient(req, res);
     getAllNotifications(req.body.userId, res, sseChannel);
 
     /*sseChannel.send({ data: 'eventless message!' });
