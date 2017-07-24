@@ -7,7 +7,7 @@ web app to create and manage agents that periodically watch other websites and s
 
 - company A's stock value goes above X
 - tomorrow's forecast changes from sunny to rainy
-- there appear any news mentioning Y
+- certain website has news mentioning X
 - ... anything you can think of ...
 
  
@@ -30,16 +30,14 @@ div[id*="main"]@class | `class` attribute of the `<div>` whose id contains 'main
 tr:contains(foo) td:nth-of-type(3) | `innerText` of the 3rd cell of the first row found containing 'foo'
 
 ## Use it
-clone or download this repo. Optionally configure the port the server listens to in *app/config/properties.ini* . And:
+clone or download this repo, and:
 
 ```
 npm install
 npm start
 ```
 
-Log in with test/test to see some sample agents.
-
-Or if you just want to have a look, I try to keep the latest version running [here](http://128.199.150.245/notifier).
+Or if you just want to have a look, I try to keep the latest version running [here](http://128.199.150.245:3001/notifier). Log in with test/test to see some sample agents.
 
 
 ## Techs
