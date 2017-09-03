@@ -37,7 +37,7 @@ npm install
 npm start
 ```
 
-Or if you just want to have a look, I try to keep the latest version running [here](http://128.199.150.245:3001/notifier). Log in with test/test to see some sample agents.
+~~Or if you just want to have a look, I try to keep the latest version running [here](http://128.199.150.245:3001/notifier). Log in with test/test to see some sample agents.~~
 
 
 ## Techs
